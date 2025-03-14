@@ -1,4 +1,9 @@
-export default function Home() {
+import { Intro } from "@/types/introData";
+
+export default async function Home() {
+  const res = await fetch("http://localhost:4000/intro");
+  const data: Intro = await res.json();
+
   return (
     <div className="home-container">
       <div className="intro-section">
@@ -10,7 +15,11 @@ export default function Home() {
           </p>
           <p>변경되지 않는 정적인 페이지에 적절한 렌더링 방식입니다.</p>
         </div>
-        <div className="intro-descriptions"></div>
+        <div className="intro-descriptions">
+          <p className="description">{data.description1}</p>
+          <p className="description">{data.description2}</p>
+          <p className="description">{data.description3}</p>
+        </div>
       </div>
     </div>
   );
