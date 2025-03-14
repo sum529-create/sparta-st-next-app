@@ -1,4 +1,13 @@
-export default function NewsPage() {
+import { NewsItem } from "@/types/introData";
+
+export default async function NewsPage() {
+  const res = await fetch("http://localhost:4000/news", {
+    next: {
+      revalidate: 5,
+    },
+  });
+  const news: NewsItem[] = await res.json();
+
   return (
     <div className="news-container">
       <h2 className="news-header">최신 기술 뉴스</h2>
@@ -13,7 +22,32 @@ export default function NewsPage() {
           빠르게 사용자에게 페이지를 제공할 수 있습니다.
         </p>
       </div>
-      <div className="news-list"></div>
+      <div className="news-list">
+        {news.map((newsItem: NewsItem) => {
+          return (
+            <article key={newsItem.id} className="news-card">
+              <div className="news-content">
+                <h3 className="news-title">{newsItem.title}</h3>
+                <p className="news-text">{newsItem.content}</p>
+              </div>
+              <div className="news-meta">
+                <span className="meta-item">
+                  <i className="fas fa-user"></i>
+                  작성자: {newsItem.author}
+                </span>
+                <span className="meta-item">
+                  <i className="fas fa-folder"></i>
+                  카테고리: {newsItem.category}
+                </span>
+                <span className="meta-item">
+                  <i className="fas fa-calendar"></i>
+                  작성일: {new Date(newsItem.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+            </article>
+          );
+        })}
+      </div>
     </div>
   );
 }
