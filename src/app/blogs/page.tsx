@@ -1,6 +1,6 @@
 import { BlogItem } from "@/types/introData";
 
-export default async function HomePage() {
+export default async function BlogPage() {
   const res = await fetch("http://localhost:4000/blogs", {
     cache: "no-store",
   });

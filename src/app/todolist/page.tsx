@@ -1,4 +1,6 @@
 import React from "react";
+import TodoForm from "@/components/TodoForm";
+import TodoList from "@/components/TodoList";
 
 const page = () => {
   return (
@@ -16,8 +18,8 @@ const page = () => {
           방식입니다.
         </p>
       </div>
-      {/* <TodoForm />
-      <TodoList /> */}
+      <TodoForm />
+      <TodoList />
     </div>
   );
 };
